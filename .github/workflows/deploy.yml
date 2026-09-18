@@ -3,7 +3,7 @@ name: Build and Deploy
 on:
   push:
     branches:
-      - main
+      - claude/exciting-cannon-33rc05
     paths:
       - "src/**"
       - "public/**"
