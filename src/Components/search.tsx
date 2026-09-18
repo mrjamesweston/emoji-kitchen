@@ -7,7 +7,7 @@ import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 import { useDebounce } from "@uidotdev/usehooks";
 import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
-import { getEmojiData, getNotoEmojiUrl } from "./utils.js";
+import { getEmojiData, getNotoEmojiUrl, searchEmoji } from "./utils.js";
 
 export default function Search({
   disabled,
@@ -41,8 +41,8 @@ export default function Search({
    * Debounce and sanitize search queries
    */
   useEffect(() => {
-    async function search() {
-      let results = [];
+    function search() {
+      let results: Array<string> = [];
       setIsSearching(true);
       if (debouncedSearchTerm) {
         var requestQuery = debouncedSearchTerm.trim().toLowerCase();
@@ -50,10 +50,7 @@ export default function Search({
           requestQuery.length > 128
             ? requestQuery.substring(0, 127)
             : requestQuery;
-        const data = await fetch(
-          `https://backend.emojikitchen.dev/?q=${requestQuery}`,
-        );
-        results = await data.json();
+        results = searchEmoji(requestQuery);
       }
 
       setIsSearching(false);

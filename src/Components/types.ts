@@ -8,6 +8,8 @@ export interface EmojiMetadata {
 export interface EmojiData {
   alt: string;
   keywords: Array<string>;
+  category?: string;
+  subcategory?: string;
   emojiCodepoint: string;
   gBoardOrder: number;
   combinations: { [otherEmojiCodepoint: string]: Array<EmojiCombination> };
